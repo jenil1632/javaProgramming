@@ -1,47 +1,50 @@
 package com.sorting;
 
 public class MergeSort {
-    private int[] arr = {13, 7, 6, 45, 21, 9, 101, 102};
 
     public static void main(String[] args) {
      MergeSort mergeSort = new MergeSort();
-     mergeSort.display(mergeSort.sort(0, mergeSort.arr.length-1));
+        int[] arr = {13, 7, 6, 45, 21, 9, 101, 102};
+        mergeSort.sort(arr, 0, arr.length-1);
+        mergeSort.display(arr);
     }
 
-    public int[] sort(int l, int u) {
-        if(l==u){
-            int[] ans = new int[1];
-            ans[0] = arr[l];
-            return ans;
-        }
-        else {
+    public void sort(int[] arr, int l, int u) {
+        if(l < u){
             int mid = (l+u)/2;
-            int[] ans1 = sort(l, mid);
-            int[] ans2 = sort(mid+1, u);
-            int[] ans = new int[u-l+1];
-            int count = 0, flag1 = 0, flag2 = 0;
-            for(int i=l; i<=u; i++){
-                if(flag1==ans1.length){
-                    ans[count] = ans2[flag2];
-                    flag2++;
-                }
-                else if(flag2==ans2.length){
-                    ans[count] = ans1[flag1];
-                    flag1++;
-                }
-                else {
-                    if(ans1[flag1]>ans2[flag2]){
-                        ans[count] = ans2[flag2];
-                        flag2++;
-                    }
-                    else {
-                        ans[count] = ans1[flag1];
-                        flag1++;
-                    }
-                }
+            int arr1[] = new int[mid-l+1];
+            int[] arr2 = new int[u-mid];
+            int count =0;
+            for(int i=0; i<arr1.length; i++){
+                arr1[i] = arr[count];
                 count++;
             }
-            return ans;
+            for(int i=0; i<arr2.length; i++){
+                arr2[i] = arr[count];
+                count++;
+            }
+            sort(arr1, l, mid);
+            sort(arr2, mid+1, u);
+            int a =0, b=0;
+            for(int i=0; i<arr.length;i++){
+             if(a == arr1.length){
+                 arr[i] = arr2[b];
+                 b++;
+             }
+             else if(b==arr2.length){
+                 arr[i] = arr1[a];
+                 a++;
+             }
+             else{
+                 if(arr1[a] <= arr2[b]){
+                     arr[i] = arr1[a];
+                     a++;
+                 } else{
+                     arr[i] = arr2[b];
+                     b++;
+                 }
+             }
+            }
         }
     }
 
