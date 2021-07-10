@@ -79,12 +79,17 @@ public class Dijkstra {
     }
 }
 
-class Node {
+class Node implements Comparator<Node> {
     int id;
     int distance;
 
     Node(int id, int distance){
         this.id = id;
-        this.distance  = distance;
+        this.distance = distance;
+    }
+
+    @Override
+    public int compare(Node o1, Node o2) {
+        return o1.distance - o2.distance ;
     }
 }
